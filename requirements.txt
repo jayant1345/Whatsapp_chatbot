@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+requests
+langgraph
+langchain-anthropic
+langchain-openai
+langgraph-checkpoint-sqlite
+python-dotenv
+httpx
+rank_bm25
+python-multipart

@@ -1,0 +1,28 @@
+JK Data Lab Company Profile & FAQs
+=================================
+
+1. About the Company:
+JK Data Lab is a premier data engineering, workflow automation, and AI integration agency founded in 2026. We specialize in building automated chatbots, custom API connectors, and automated social media publishing pipelines for modern businesses. Our mission is to accelerate business intelligence through cutting-edge agentic workflows.
+
+2. Physical Office Location:
+Our main headquarters are situated in Mumbai, Maharashtra, India. We operate in a hybrid work environment but hold client strategy sessions in our Mumbai workspace.
+
+3. Working Hours:
+We are open from Monday through Friday.
+Hours: 9:00 AM to 6:00 PM (Indian Standard Time - IST).
+We are closed on Saturdays, Sundays, and major Indian national holidays.
+
+4. Core Services Offered:
+- Custom WhatsApp & Slack Chatbots with persistent agent memory.
+- Robotic Process Automation (RPA) and custom CRM integrations.
+- Social Media Content Pipelines (automated LinkedIn, Facebook, and Twitter posting pipelines).
+- Data Warehousing, ETL pipeline creation, and local Vector Database indexing (pgvector, ChromaDB).
+
+5. Contact Information:
+For support or business queries:
+- Email: contact@jkdatalab.com
+- Main Contact Email for developers and support escalation: kinjal@jkdatalab.com
+- Website: https://www.jkdatalab.com (under active development)
+
+6. Pricing:
+We offer custom quotes based on the size and complexity of the workflow. Basic automation packages start at $1,500/month, and enterprise database integrations are custom-quoted after a discovery call.

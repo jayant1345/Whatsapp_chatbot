@@ -1,0 +1,14 @@
+# Secrets - never commit
+.env
+
+# Python virtual environment
+.venv/
+__pycache__/
+*.pyc
+
+# Runtime data / local databases
+chat_logs.db
+checkpoints.sqlite
+checkpoints.sqlite-shm
+checkpoints.sqlite-wal
+server_logs.txt
