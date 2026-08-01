@@ -2,7 +2,8 @@ import sqlite3
 import os
 from datetime import datetime
 
-DB_NAME = "chat_logs.db"
+DATA_DIR = os.getenv("DATA_DIR", os.path.dirname(os.path.abspath(__file__)))
+DB_NAME = os.path.join(DATA_DIR, "chat_logs.db")
 
 def init_db():
     """

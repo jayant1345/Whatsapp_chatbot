@@ -27,9 +27,11 @@ from rag_helper import index_knowledge_base, query_knowledge_base, get_indexed_f
 # Load environment variables
 load_dotenv()
 
+DATA_DIR = os.getenv("DATA_DIR", os.path.dirname(os.path.abspath(__file__)))
+
 # Setup system console and file logging mechanism
 log_formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
-log_file_path = os.path.join(os.path.dirname(__file__), "server_logs.txt")
+log_file_path = os.path.join(DATA_DIR, "server_logs.txt")
 
 file_handler = logging.FileHandler(log_file_path, encoding="utf-8")
 file_handler.setFormatter(log_formatter)
@@ -119,7 +121,7 @@ workflow.add_edge(START, "agent")
 workflow.add_edge("agent", END)
 
 # Initialize SqliteSaver manually for 24/7 local thread memory
-db_conn = sqlite3.connect("checkpoints.sqlite", check_same_thread=False)
+db_conn = sqlite3.connect(os.path.join(DATA_DIR, "checkpoints.sqlite"), check_same_thread=False)
 checkpointer = SqliteSaver(db_conn)
 checkpointer.setup()
 chatbot_graph = workflow.compile(checkpointer=checkpointer)
@@ -276,7 +278,7 @@ async def upload_knowledge_file(file: UploadFile = File(...)):
         if not file.filename.endswith(".txt"):
             return JSONResponse(status_code=400, content={"status": "error", "message": "Only .txt files are supported."})
             
-        knowledge_dir = os.path.join(os.path.dirname(__file__), "knowledge")
+        knowledge_dir = os.path.join(DATA_DIR, "knowledge")
         if not os.path.exists(knowledge_dir):
             os.makedirs(knowledge_dir)
             
@@ -328,7 +330,7 @@ def get_thread_chat_history(thread_id: str):
     """
     Returns chat message history and settings for a specific phone number.
     """
-    conn = sqlite3.connect("chat_logs.db")
+    conn = sqlite3.connect(os.path.join(DATA_DIR, "chat_logs.db"))
     cursor = conn.cursor()
     cursor.execute("""
         SELECT user_message, bot_response, provider, model, timestamp 

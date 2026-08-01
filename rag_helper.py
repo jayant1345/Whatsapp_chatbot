@@ -17,7 +17,8 @@ DB_PASSWORD = os.getenv("POSTGRES_PASSWORD", "")
 DB_NAME = os.getenv("POSTGRES_DB", "postgres")
 
 # Directory containing knowledge documents
-KNOWLEDGE_DIR = os.path.join(os.path.dirname(__file__), "knowledge")
+DATA_DIR = os.getenv("DATA_DIR", os.path.dirname(os.path.abspath(__file__)))
+KNOWLEDGE_DIR = os.path.join(DATA_DIR, "knowledge")
 
 def get_db_connection():
     """

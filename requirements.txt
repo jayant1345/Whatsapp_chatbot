@@ -9,3 +9,5 @@ python-dotenv
 httpx
 rank_bm25
 python-multipart
+psycopg2-binary
+pgvector
