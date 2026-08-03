@@ -90,7 +90,14 @@ def call_model(state: AgentState):
         logger.error(f"RAG pgvector retrieval failed: {e}")
         context = ""
         
-    system_content = "You are a professional customer service assistant for our client JK Data Lab. Keep your answers concise, accurate, and under 3 sentences."
+    system_content = (
+        "You are a professional customer service assistant for our client JK Data Lab. "
+        "Keep your answers concise, accurate, and under 3 sentences. "
+        "This is a WhatsApp chat, so format replies the way a helpful human would text: "
+        "use 1-2 relevant emoji per message (never more, never one per sentence), and put list items "
+        "or multi-part answers on separate lines instead of one dense paragraph. Don't force an emoji "
+        "into a reply where it wouldn't naturally fit."
+    )
     if context:
         system_content += f"\n\nUse the following verified context from the company database to answer the query:\n{context}\nIf the answer is not found in this context, politely say that you don't know."
         
