@@ -2,6 +2,7 @@ import os
 import logging
 import requests
 import sqlite3
+from collections import deque
 from typing import Annotated, TypedDict
 from dotenv import load_dotenv, set_key
 from fastapi import FastAPI, Request, Query, Response, status, UploadFile, File
@@ -56,6 +57,9 @@ META_ACCESS_TOKEN = os.getenv("META_ACCESS_TOKEN")
 PHONE_NUMBER_ID = os.getenv("META_PHONE_NUMBER_ID")
 
 app = FastAPI(title="WhatsApp Chatbot Dashboard")
+
+# Recently processed WhatsApp message IDs, to ignore duplicate webhook redeliveries from Meta
+_recent_message_ids = deque(maxlen=1000)
 
 # Initialize database on startup
 @app.on_event("startup")
@@ -1788,7 +1792,15 @@ async def handle_webhook(request: Request):
     message = messages[0]
     sender_phone = message.get("from")  # Customer's WhatsApp phone number
     message_type = message.get("type")
-    
+
+    # Guard against Meta redelivering the same message (e.g. after a slow response)
+    message_id = message.get("id")
+    if message_id and message_id in _recent_message_ids:
+        logger.info(f"Ignoring duplicate webhook delivery for message {message_id}")
+        return {"status": "duplicate_ignored"}
+    if message_id:
+        _recent_message_ids.append(message_id)
+
     # Process text messages
     if message_type == "text":
         user_message_text = message.get("text", {}).get("body", "")
